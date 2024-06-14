@@ -47,8 +47,8 @@ class Num2Word_EU(Num2Word_Base):
         'HUF': (('forint', 'forint'), ('fillér', 'fillér')),
         'ISK': (('króna', 'krónur'), ('aur', 'aurar')),
         'UZS': (('sum', 'sums'), ('tiyin', 'tiyins')),
-        'SAR': (('saudi riyal', 'saudi riyals'), ('halalah', 'halalas'))
-
+        'SAR': (('saudi riyal', 'saudi riyals'), ('halalah', 'halalas')),
+        'BRL': (('real', 'reals'), ('cent', 'cents')),
     }
 
     CURRENCY_ADJECTIVES = {
