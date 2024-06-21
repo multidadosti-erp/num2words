@@ -23,7 +23,11 @@ from . import lang_PT
 
 class Num2Word_PT_BR(lang_PT.Num2Word_PT):
 
-    CURRENCY_FORMS = {'BRL': (('real', 'reais'), ('centavo', 'centavos'))}
+    CURRENCY_FORMS = {
+        "BRL": (('real', 'reais'), ('centavo', 'centavos')),
+        "USD": (("dolar", "dolares"), ("centavo", "centavos")),
+        "EUR": (("euro", "euros"), ("centavo", "centavos")),
+    }
 
     def set_high_numwords(self, high):
         max = 3 + 3*len(high)

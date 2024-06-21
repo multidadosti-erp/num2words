@@ -87,12 +87,21 @@ CONVERTES_TYPES = ['cardinal', 'ordinal', 'ordinal_num', 'year', 'currency']
 
 
 def num2words(number, ordinal=False, lang='en', to='cardinal', **kwargs):
+    # Alguns casos o parametro lang esta como Boolean
+    if isinstance(lang, bool):
+        lang = 'en'
+
     # We try the full language first
     if lang not in CONVERTER_CLASSES:
         # ... and then try only the first 2 letters
-        lang = lang[:2]
+        if len(lang) >= 2:
+            lang = lang[:2]
+        else:
+            lang = 'en'
+
     if lang not in CONVERTER_CLASSES:
         raise NotImplementedError()
+
     converter = CONVERTER_CLASSES[lang]
 
     if isinstance(number, str):
