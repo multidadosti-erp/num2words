@@ -87,32 +87,27 @@ class Num2Word_PT_BR(lang_PT.Num2Word_PT):
 
         return result
 
-    def to_currency(self, val, longval=True):
-        integer_part, decimal_part = ('%.2f' % val).split('.')
+    def to_currency(self, val, currency='EUR', cents=True, separator=' e',
+                    adjective=False):
+        # change negword because base.to_currency() does not need space after
+        backup_negword = self.negword
+        self.negword = self.negword[:-1]
+        result = super(Num2Word_PT_BR, self).to_currency(
+            val, currency=currency, cents=cents, separator=separator,
+            adjective=adjective)
+        # undo the change on negword
+        self.negword = backup_negword
 
-        result = self.to_cardinal(int(integer_part))
+        # transforms "milhões euros" em "milhões de euros"
+        cr1, _ = self.CURRENCY_FORMS[currency]
 
-        appended_currency = False
         for ext in (
-                'milhão', 'milhões', 'bilhão', 'bilhões',
-                'trilhão', 'trilhões', 'quatrilhão', 'quatrilhões'):
-            if result.endswith(ext):
-                result += ' de reais'
-                appended_currency = True
-
-        if result in ['um', 'menos um']:
-            result += ' real'
-            appended_currency = True
-        if not appended_currency:
-            result += ' reais'
-
-        if int(decimal_part):
-            cents = self.to_cardinal(int(decimal_part))
-            result += ' e ' + cents
-
-            if cents == 'um':
-                result += ' centavo'
-            else:
-                result += ' centavos'
-
+                'milhão', 'milhões', 'bilião',
+                'biliões', 'trilião', 'triliões'):
+            if re.match('.*{} (?={})'.format(ext, cr1[1]), result):
+                result = result.replace(
+                    '{}'.format(ext), '{} de'.format(ext), 1
+                )
+        # do not print "e zero cêntimos"
+        result = result.replace(' e zero cêntimos', '')
         return result
