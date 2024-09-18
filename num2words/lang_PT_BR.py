@@ -27,6 +27,7 @@ class Num2Word_PT_BR(lang_PT.Num2Word_PT):
         "BRL": (('real', 'reais'), ('centavo', 'centavos')),
         "USD": (("dolar", "dolares"), ("centavo", "centavos")),
         "EUR": (("euro", "euros"), ("centavo", "centavos")),
+        "CHF": (("franco suíço", "franco-suíços"), ("centavo", "centavos")),
     }
 
     def set_high_numwords(self, high):

@@ -21,6 +21,14 @@ from . import lang_EU
 
 
 class Num2Word_EN(lang_EU.Num2Word_EU):
+
+    CURRENCY_FORMS = {
+        "BRL": (('real', 'reais'), ('cent', 'cents')),
+        "USD": (("dollar", "dollars"), ("cent", "cents")),
+        "EUR": (("euro", "euros"), ("cent", "cents")),
+        "CHF": (("swiss franc", "swiss francs"), ("cent", "cents")),
+    }
+
     def set_high_numwords(self, high):
         max = 3 + 3 * len(high)
         for word, n in zip(high, range(max, 3, -3)):
